@@ -113,37 +113,36 @@ jobs:
     - name: Terraform Init (Webserver)
       run: |
         ls
-        cd prod/webserver
+        cd prod/webservers
         terraform init
 
     # Format Terraform files in the webserver directory
     - name: Terraform Format (Webserver)
       run: |
-        cd prod/webserver
+        cd prod/webservers
         terraform fmt
 
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
-        cd prod/webserver
+        cd prod/webservers
         terraform plan
 
     # Apply Terraform changes in the webserver directory
     - name: Terraform Apply (Webserver)
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        cd prod/webserver
+        cd prod/webservers
         terraform apply -auto-approve
 
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
-        cd prod/webserver
+        cd prod/webservers
         terraform destroy -auto-approve
 
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
-        cd ..
         cd prod/network
         terraform destroy -auto-approve

@@ -135,14 +135,14 @@ jobs:
         cd prod/webservers
         terraform apply -auto-approve
 
-    # Plan Terraform changes in the webserver directory
-    - name: Terraform Plan (Webserver)
-      run: |
-        cd prod/webservers
-        terraform destroy -auto-approve
+    # # Plan Terraform changes in the webserver directory
+    # - name: Terraform Plan (Webserver)
+    #   run: |
+    #     cd prod/webservers
+    #     terraform destroy -auto-approve
 
-    # Plan Terraform changes in the webserver directory
-    - name: Terraform Plan (Webserver)
-      run: |
-        cd prod/network
-        terraform destroy -auto-approve
+    # # Plan Terraform changes in the webserver directory
+    # - name: Terraform Plan (Webserver)
+    #   run: |
+    #     cd prod/network
+    #     terraform destroy -auto-approve

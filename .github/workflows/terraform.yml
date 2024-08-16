@@ -83,6 +83,10 @@ jobs:
         echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
         echo "aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
 
+    # Run Vulnerability scan for code
+    - name: Aqua Security Trivy
+      uses: aquasecurity/trivy-action@0.24.0
+  
         
     # Initialize Terraform in the network directory
     - name: Terraform Init (Network)
@@ -136,13 +140,13 @@ jobs:
         terraform apply -auto-approve
 
     # # Plan Terraform changes in the webserver directory
-    # - name: Terraform Plan (Webserver)
+    # - name: Terraform Destroy for Webserver (Webserver)
     #   run: |
     #     cd prod/webservers
     #     terraform destroy -auto-approve
 
     # # Plan Terraform changes in the webserver directory
-    # - name: Terraform Plan (Webserver)
+    # - name: Terraform Destroy for Network (Network)
     #   run: |
     #     cd prod/network
     #     terraform destroy -auto-approve

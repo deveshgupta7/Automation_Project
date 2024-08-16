@@ -1,0 +1,39 @@
+
+#key value pair
+fruit: apple
+vegetable: onion
+value: 10
+
+#array/list
+Fruits:
+  - apple
+  - banana
+  - orange
+
+#dictionary
+Banana:
+  Fat: 20g
+  Calories: 60
+  Pottassium: 20g
+
+#List contains Dictionary
+Fruits:
+ - Banana:
+     Fat: 20g
+     Calories: 60
+     Pottassium: 20g
+
+ - Apple:
+     Fat: 10g
+     Calories: 40
+           
+#Dictionary with in Dictionary
+Fruits:
+  color: Green
+  Taste:
+     type1: sweet
+     type2: Bitter
+
+
+
+

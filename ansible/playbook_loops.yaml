@@ -1,0 +1,28 @@
+---
+- hosts: linux
+  gather_facts: True
+  become: yes
+  
+  tasks:
+    - name: Update sudoers file to allow members of the wheel groups passwordless access
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^# %wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+        
+    - name: Create users with sudo access
+      user: 
+        name={{ item.name }}
+        shell={{ shell }}
+        groups=wheel
+        append=yes
+
+      
+      loop:
+        - name: acs730
+        - name: clo700
+        - name: clo835
+      when: ansible_system == "Linux"
+    

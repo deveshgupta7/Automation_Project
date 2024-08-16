@@ -1,0 +1,7 @@
+---
+- hosts: linux
+  gather_facts: True
+  become: yes
+  
+  roles:
+    - { role: deploy_apache_centos, when: ansible_system == 'Linux' }

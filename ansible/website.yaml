@@ -1,0 +1,48 @@
+---
+- name: Set up static website on Apache
+  hosts: tag_CAAacs730
+  gather_facts: True
+  become: yes
+
+  vars:
+    website_root: /var/www/html
+    source_files:
+      - src: index.html
+        dest: "{{ website_root }}/index.html"
+      - src: assets/
+        dest: "{{ website_root }}/assets/"
+
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+        update_cache: yes
+
+    - name: Ensure Apache is running and enabled
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Deploy index.html
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: '0644'
+      with_items: "{{ source_files }}"
+      when: item.src == 'index.html'
+
+    - name: Deploy assets directory
+      synchronize:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        recursive: yes
+      with_items: "{{ source_files }}"
+      when: item.src == 'assets/'
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted

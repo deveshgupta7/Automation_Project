@@ -1,0 +1,32 @@
+---
+- name: Install Apache Web Server for RPM
+  yum: name=httpd state=latest
+  when: ansible_os_family == "RedHat"
+
+    
+- name: Print Linux Family
+  debug: var=ansible_os_family
+      
+- name:     Generate index.html from jinja2 template and copy to the remote host
+  template: src=index.j2 dest={{ dest_folder }}/index.html mode=0555
+  notify:   Restart Httpd
+  when:     ansible_os_family == "RedHat"
+  
+- name:     Copy the images
+  copy:     src={{ item }} dest={{ dest_folder }}/ mode=0555
+  notify:   Restart Httpd
+  when:     ansible_os_family == "RedHat"
+  loop:
+    - "tulip.jpeg"
+    - "daisy.jpeg"
+    - "rose.jpeg"
+    - "daffodil.jpeg"
+    - "lilly.jpeg"
+    - "sunflower.jpeg"
+    - "hibiscus.jpeg"
+      
+      
+- name: Start Apache Web Server
+  service: name=httpd state=started enabled=yes
+  when: ansible_os_family == "RedHat"
+

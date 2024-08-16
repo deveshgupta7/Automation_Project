@@ -112,6 +112,7 @@ jobs:
     # Initialize Terraform in the webserver directory
     - name: Terraform Init (Webserver)
       run: |
+        cd ..
         cd prod/webserver
         terraform init
 
@@ -131,6 +132,18 @@ jobs:
     - name: Terraform Apply (Webserver)
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        cd webserver
+        cd prod/webserver
         terraform apply -auto-approve
 
+    # Plan Terraform changes in the webserver directory
+    - name: Terraform Plan (Webserver)
+      run: |
+        cd prod/webserver
+        terraform destroy -auto-approve
+
+    # Plan Terraform changes in the webserver directory
+    - name: Terraform Plan (Webserver)
+      run: |
+        cd ..
+        cd prod/network
+        terraform destroy -auto-approve

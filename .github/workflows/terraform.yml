@@ -73,54 +73,76 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Configure AWS credentials
+    - name: Configure AWS Credentials
+      run: |
+        mkdir -p ~/.aws
+        echo "[default]" > ~/.aws/credentials
+        echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+        echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+        echo "aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}" >> ~/.aws/credentials
+
         
     # Initialize Terraform in the network directory
     - name: Terraform Init (Network)
       run: |
-        cd network
+        cd prod/network
         terraform init
 
     # Format Terraform files in the network directory
     - name: Terraform Format (Network)
       run: |
-        cd network
-        terraform fmt -check
+        cd prod/network
+        terraform fmt
 
     # Plan Terraform changes in the network directory
     - name: Terraform Plan (Network)
       run: |
         cd prod/network
-        terraform plan -input=false
+        terraform plan
 
     # Apply Terraform changes in the network directory
     - name: Terraform Apply (Network)
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
         cd prod/network
-        terraform apply -auto-approve -input=false
+        terraform apply -auto-approve
 
     # Initialize Terraform in the webserver directory
     - name: Terraform Init (Webserver)
       run: |
-        cd prod/webserver
+        ls
+        cd prod/webservers
         terraform init
 
     # Format Terraform files in the webserver directory
     - name: Terraform Format (Webserver)
       run: |
-        cd prod/webserver
-        terraform fmt -check
+        cd prod/webservers
+        terraform fmt
 
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
-        cd prod/webserver
-        terraform plan -input=false
+        cd prod/webservers
+        terraform plan
 
     # Apply Terraform changes in the webserver directory
     - name: Terraform Apply (Webserver)
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        cd webserver
-        terraform apply -auto-approve -input=false
+        cd prod/webservers
+        terraform apply -auto-approve
 
+    # # Plan Terraform changes in the webserver directory
+    # - name: Terraform Plan (Webserver)
+    #   run: |
+    #     cd prod/webservers
+    #     terraform destroy -auto-approve
+
+    # # Plan Terraform changes in the webserver directory
+    # - name: Terraform Plan (Webserver)
+    #   run: |
+    #     cd prod/network
+    #     terraform destroy -auto-approve

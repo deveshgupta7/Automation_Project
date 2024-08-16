@@ -77,6 +77,7 @@ jobs:
     # Configure AWS credentials
     - name: Configure AWS Credentials
       run: |
+        mkdir -p ~/.aws
         echo "[default]" > ~/.aws/config
         echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/config
         echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/config

@@ -77,13 +77,13 @@ jobs:
     # Initialize Terraform in the network directory
     - name: Terraform Init (Network)
       run: |
-        cd network
+        cd prod/network
         terraform init
 
     # Format Terraform files in the network directory
     - name: Terraform Format (Network)
       run: |
-        cd network
+        cd prod/network
         terraform fmt -check
 
     # Plan Terraform changes in the network directory

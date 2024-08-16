@@ -113,6 +113,8 @@ jobs:
     - name: Terraform Init (Webserver)
       run: |
         cd ..
+        pwd
+        ls -R
         cd webserver
         terraform init
 

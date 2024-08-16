@@ -89,32 +89,32 @@ jobs:
     # Plan Terraform changes in the network directory
     - name: Terraform Plan (Network)
       run: |
-        cd network
+        cd prod/network
         terraform plan -input=false
 
     # Apply Terraform changes in the network directory
     - name: Terraform Apply (Network)
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        cd network
+        cd prod/network
         terraform apply -auto-approve -input=false
 
     # Initialize Terraform in the webserver directory
     - name: Terraform Init (Webserver)
       run: |
-        cd webserver
+        cd prod/webserver
         terraform init
 
     # Format Terraform files in the webserver directory
     - name: Terraform Format (Webserver)
       run: |
-        cd webserver
+        cd prod/webserver
         terraform fmt -check
 
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
-        cd webserver
+        cd prod/webserver
         terraform plan -input=false
 
     # Apply Terraform changes in the webserver directory

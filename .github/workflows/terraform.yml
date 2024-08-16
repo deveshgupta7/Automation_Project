@@ -112,7 +112,7 @@ jobs:
     # Initialize Terraform in the webserver directory
     - name: Terraform Init (Webserver)
       run: |
-        pwd
+        ls
         cd prod/webserver
         terraform init
 

@@ -111,7 +111,6 @@ jobs:
 
     # Apply Terraform changes in the network directory
     - name: Terraform Apply (Network)
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
         cd prod/network
         terraform apply -auto-approve
@@ -144,7 +143,6 @@ jobs:
 
     # Apply Terraform changes in the webserver directory
     - name: Terraform Apply (Webserver)
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
         cd prod/webservers
         terraform apply -auto-approve

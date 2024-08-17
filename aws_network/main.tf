@@ -36,7 +36,7 @@ resource "aws_vpc" "main" {
   )
 }
 
-# Add provisioning of the public subnetin the default VPC
+# Add provisioning of the public subnet in the default VPC
 resource "aws_subnet" "public_subnet" {
   count             = length(var.public_cidr_blocks)
   vpc_id            = aws_vpc.main.id

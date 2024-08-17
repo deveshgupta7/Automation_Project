@@ -96,6 +96,13 @@ jobs:
         cd prod/network
         terraform fmt
 
+    # Run Trivy vulnerability scanner on the network Terraform directory
+    - name: Run Trivy vulnerability scanner (Network)
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        scan-type: 'filesystem'
+        path: 'prod/network'
+
     # Plan Terraform changes in the network directory
     - name: Terraform Plan (Network)
       run: |
@@ -122,6 +129,13 @@ jobs:
         cd prod/webservers
         terraform fmt
 
+    # Run Trivy vulnerability scanner on the webserver Terraform directory
+    - name: Run Trivy vulnerability scanner (Webserver)
+      uses: aquasecurity/trivy-action@0.20.0
+      with:
+        scan-type: 'filesystem'
+        path: 'prod/webserver'
+
     # Plan Terraform changes in the webserver directory
     - name: Terraform Plan (Webserver)
       run: |
@@ -135,14 +149,14 @@ jobs:
         cd prod/webservers
         terraform apply -auto-approve
 
-    # # Plan Terraform changes in the webserver directory
-    # - name: Terraform Plan (Webserver)
+    # # Plan Terraform Destroy in the webserver directory
+    # - name: Terraform Destroy for Webserver (Webserver)
     #   run: |
     #     cd prod/webservers
     #     terraform destroy -auto-approve
 
-    # # Plan Terraform changes in the webserver directory
-    # - name: Terraform Plan (Webserver)
+    # # Plan Terraform Destroy in the network directory
+    # - name: Terraform Destroy for Network (Network)
     #   run: |
     #     cd prod/network
     #     terraform destroy -auto-approve

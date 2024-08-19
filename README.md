@@ -105,3 +105,5 @@ By following the above your webserver will be deployed on the VMs and it will be
 This project demonstrates the application of Terraform, Ansible, and GitHub Actions to deploy a secure and scalable cloud infrastructure in AWS. The setup includes creating one VPC for production environments, and deploying EC2 instances with specific security rules. The use of Terraform highlights modular infrastructure as code practices with environment-specific configurations and optional load balancing for enhanced reliability.
 
 Ansible is employed to automate the configuration and management of the deployed EC2 instances, ensuring consistent and repeatable setups. GitHub Actions are integrated to automate the CI/CD pipeline, including Terraform plan and apply steps. This integration demonstrates proficiency in automating infrastructure deployment and configuration while emphasizing secure networking practices and efficient resource management in cloud environments.
+
+#review
